@@ -1,10 +1,12 @@
 import express from 'express';
 import sequelize from './config/database.js';
 import User from './models/User.js';
+import authRoutes from './routes/auth.js';
 
 const app = express();
 
 app.use(express.json());
+app.use('/auth', authRoutes);
 
 app.get('/health', (_req, res) => {
     res.json({ ok: true });
