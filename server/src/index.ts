@@ -1,12 +1,23 @@
 import express from 'express';
+import cors, { type CorsOptions } from 'cors';
 import sequelize from './config/database.js';
 import User from './models/User.js';
 import authRoutes from './routes/auth.js';
+import userRoutes from './routes/user.js';
 
 const app = express();
 
+const corsOptions: CorsOptions = {
+    origin: 'http://localhost:5173',
+    methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
+};
+
+app.use(cors(corsOptions));
+app.options(/.*/, cors(corsOptions));
 app.use(express.json());
 app.use('/auth', authRoutes);
+app.use('/user', userRoutes);
 
 app.get('/health', (_req, res) => {
     res.json({ ok: true });
