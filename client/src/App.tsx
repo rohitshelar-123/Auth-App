@@ -1,11 +1,16 @@
-import './App.css'
+import { Navigate, Route, Routes } from 'react-router-dom'
+import Login from './pages/Login'
+import Register from './pages/Register'
+import Dashboard from './components/Dashboard'
 
 function App() {
-
   return (
-    <>
-      <h1>Hi</h1>
-    </>
+    <Routes>
+      <Route path="/" element={<Navigate to="/login" replace />} />
+      <Route path="/login" element={<Login />} />
+      <Route path="/register" element={<Register />} />
+      <Route path="/dashboard" element={<Dashboard onLogout={() => {}} />} />
+    </Routes>
   )
 }
 
