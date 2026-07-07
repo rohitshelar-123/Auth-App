@@ -1,14 +1,30 @@
 import dotenv from "dotenv";
+import path from "path";
+import { fileURLToPath } from "url";
 import { Sequelize } from "sequelize";
 
-dotenv.config();
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+dotenv.config({ path: path.resolve(__dirname, "../../../.env") });
+
+function requireEnv(name: string): string {
+  const value = process.env[name];
+
+  if (!value) {
+    throw new Error(`Missing required environment variable: ${name}`);
+  }
+
+  return value;
+}
 
 const sequelize = new Sequelize(
-  process.env.DB_NAME ?? "auth_app",
-  process.env.DB_USER ?? "rohit",
-  process.env.DB_PASSWORD ?? "./admin",
+  requireEnv("DB_NAME"),
+  requireEnv("DB_USER"),
+  requireEnv("DB_PASSWORD"),
   {
-    host: process.env.DB_HOST ?? "localhost",
+    host: requireEnv("DB_HOST"),
+    port: process.env.DB_PORT ? Number(process.env.DB_PORT) : 3306,
     dialect: "mysql",
     logging: false,
   }
