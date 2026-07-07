@@ -6,7 +6,7 @@ import authRoutes from './routes/auth.js';
 import userRoutes from './routes/user.js';
 
 const app = express();
-const clientOrigin = process.env.VITE_API_BASE_URL ?? 'http://localhost:5173';
+const clientOrigin = process.env.CLIENT_ORIGIN ?? 'http://localhost:5173';
 
 const corsOptions: CorsOptions = {
     origin: clientOrigin,

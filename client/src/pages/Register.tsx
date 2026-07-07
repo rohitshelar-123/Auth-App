@@ -59,7 +59,7 @@ function Register() {
           <Input
             label="Name"
             type="text"
-            placeholder="John"
+            placeholder="Test"
             value={form.name}
             onChange={(event) => setForm({ ...form, name: event.target.value })}
             className="field-input"
@@ -68,7 +68,7 @@ function Register() {
           <Input
             label="Email"
             type="email"
-            placeholder="example@gmail.com"
+            placeholder="test@example.com"
             value={form.email}
             onChange={(event) => setForm({ ...form, email: event.target.value })}
             className="field-input"

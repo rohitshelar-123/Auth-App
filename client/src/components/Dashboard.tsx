@@ -11,7 +11,7 @@ function Dashboard({ onLogout }: DashboardProps) {
     <main className="shell dashboard-shell">
       <section className="dashboard-card">
         <p className="eyebrow">Signed in</p>
-        <h1>Welcome back, Rohit</h1>
+        <h1>Welcome back, test</h1>
         <p className="muted">
           This is your simple post-login screen for now. We can connect the API next.
         </p>

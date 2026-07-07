@@ -58,7 +58,7 @@ function Login() {
           <Input
             label="Email"
             type="email"
-            placeholder="rohit@example.com"
+            placeholder="test@example.com"
             value={form.email}
             onChange={(event) => setForm({ ...form, email: event.target.value })}
             className="field-input"
