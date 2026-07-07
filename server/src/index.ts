@@ -6,10 +6,24 @@ import authRoutes from './routes/auth.js';
 import userRoutes from './routes/user.js';
 
 const app = express();
-const clientOrigin = process.env.CLIENT_ORIGIN ?? 'http://localhost:5173';
+const allowedOrigins = (
+    process.env.CLIENT_ORIGINS ??
+    process.env.CLIENT_ORIGIN ??
+    'http://localhost:5173,https://auth-app-green-pi.vercel.app'
+)
+    .split(',')
+    .map((origin) => origin.trim())
+    .filter(Boolean);
 
 const corsOptions: CorsOptions = {
-    origin: clientOrigin,
+    origin: (origin, callback) => {
+        if (!origin || allowedOrigins.includes(origin)) {
+            callback(null, true);
+            return;
+        }
+
+        callback(new Error(`CORS blocked for origin: ${origin}`));
+    },
     methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization'],
 };
