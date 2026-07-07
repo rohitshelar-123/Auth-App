@@ -6,9 +6,10 @@ import authRoutes from './routes/auth.js';
 import userRoutes from './routes/user.js';
 
 const app = express();
+const clientOrigin = process.env.CLIENT_ORIGIN;
 
 const corsOptions: CorsOptions = {
-    origin: 'http://localhost:5173',
+    origin: clientOrigin,
     methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization'],
 };
