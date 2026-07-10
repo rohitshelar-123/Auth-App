@@ -7,9 +7,8 @@ export default defineConfig({
   server: {
     proxy: {
       '/api': {
-        target: 'https://auth-app-production-d31f.up.railway.app',
+        target: 'http://localhost:3001',
         changeOrigin: true,
-        secure: true,
         rewrite: (path) => path.replace(/^\/api/, ''),
       },
     },

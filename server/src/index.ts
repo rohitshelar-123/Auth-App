@@ -4,12 +4,14 @@ import sequelize from './config/database.js';
 import User from './models/User.js';
 import authRoutes from './routes/auth.js';
 import userRoutes from './routes/user.js';
+import './models/Task.js';
+import taskRoutes from './routes/task.js';
 
 const app = express();
 const allowedOrigins = (
     process.env.CLIENT_ORIGINS ??
     process.env.CLIENT_ORIGIN ??
-    'http://localhost:5173,https://auth-app-green-pi.vercel.app'
+    'http://localhost:5173,http://localhost:4173'
 )
     .split(',')
     .map((origin) => origin.trim())
@@ -33,6 +35,7 @@ app.options(/.*/, cors(corsOptions));
 app.use(express.json());
 app.use('/auth', authRoutes);
 app.use('/user', userRoutes);
+app.use('/tasks', taskRoutes);
 
 app.get('/health', (_req, res) => {
     res.json({ ok: true });
@@ -41,7 +44,7 @@ app.get('/health', (_req, res) => {
 async function startServer() {
     try {
         await sequelize.authenticate();
-        await User.sync();
+        await sequelize.sync();
 
         app.listen(3001, () => {
             console.log('Server started on port 3001');
